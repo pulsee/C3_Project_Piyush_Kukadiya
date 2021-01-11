@@ -83,4 +83,19 @@ public class Restaurant {
         return location;
     }
 
+    public double getOrderValue(ArrayList<String> items) throws itemNotFoundException {
+        double totalOrderValue = 0;
+
+        for (String item : items)
+        {
+            Item itemToBeCount = findItemByName(item);
+
+            if (itemToBeCount == null)
+                throw new itemNotFoundException(item);
+
+            totalOrderValue+=itemToBeCount.getPrice();
+        }
+
+        return totalOrderValue;
+    }
 }
