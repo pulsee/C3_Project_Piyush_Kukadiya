@@ -92,4 +92,54 @@ class RestaurantTest {
     }
     //<<<<<<<<<<<<<<<<<<<<<<<MENU>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
+    //>>>>>>>>>>>>>>>>>>>>>>Order Value<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+    @Test
+    public void order_value_should_be_zero_when_list_is_empty(){
+
+        ArrayList<String> items = new ArrayList<>();
+
+        try {
+            assertEquals(0,restaurant.getOrderValue(items));
+        } catch (itemNotFoundException e) {
+            fail("Must not throw Exception");
+        }
+
+    }
+
+    @Test
+    public void selected_item_that_does_not_exist_should_throw_exception() {
+
+        restaurant.addToMenu("Sweet corn soup",119);
+        restaurant.addToMenu("Vegetable lasagne", 269);
+
+        ArrayList<String> selectedItems = new ArrayList<>();
+        selectedItems.add("French fries");
+
+        assertThrows(itemNotFoundException.class,
+                ()->restaurant.getOrderValue(selectedItems));
+    }
+
+    @Test
+    public void order_value_should_be_100_when_price_of_items_are_40_and_60(){
+
+        restaurant.addToMenu("Sweet corn soup",40);
+        restaurant.addToMenu("Vegetable lasagne", 60);
+        restaurant.addToMenu("Omlette", 70);
+        restaurant.addToMenu("Roti", 20);
+
+        ArrayList<String> itemsSelected = new ArrayList<>();
+
+        itemsSelected.add("Sweet corn soup");
+        itemsSelected.add("Vegetable lasagne");
+
+        try {
+            assertEquals(100,restaurant.getOrderValue(itemsSelected));
+        } catch (itemNotFoundException e) {
+            fail("Must not throw Exception");
+        }
+
+    }
+
+    //<<<<<<<<<<<<<<<<<<<<Order Value>>>>>>>>>>>>>>>>>>>>>>>>>>
 }
