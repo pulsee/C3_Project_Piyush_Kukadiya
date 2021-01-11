@@ -5,8 +5,28 @@ import java.util.List;
 public class RestaurantService {
     private static List<Restaurant> restaurants = new ArrayList<>();
 
-    public Restaurant findRestaurantByName(String restaurantName){
-        return null;
+    /**
+     * Returns first Restaurant with matching name from the list
+     * @param restaurantName name of restaurant
+     * @return {@link Restaurant} object if specified name is found else throws {@link restaurantNotFoundException}
+     */
+    public Restaurant findRestaurantByName(String restaurantName) throws restaurantNotFoundException {
+        boolean isRestaurantFound = false;
+        Restaurant restaurantFound = null;
+
+        for (Restaurant restaurant : restaurants) {
+            if (restaurant.getName().equals(restaurantName))
+            {
+                isRestaurantFound = true;
+                restaurantFound = restaurant;
+                break;
+            }
+        }
+
+        if (!isRestaurantFound)
+            throw new restaurantNotFoundException(restaurantName);
+
+        return restaurantFound;
         //DELETE ABOVE STATEMENT AND WRITE CODE HERE
     }
 
@@ -23,7 +43,10 @@ public class RestaurantService {
         return restaurantToBeRemoved;
     }
 
+
+
     public List<Restaurant> getRestaurants() {
         return restaurants;
     }
+
 }
